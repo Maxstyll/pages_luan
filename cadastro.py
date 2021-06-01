@@ -10,8 +10,6 @@ async def serve(q: Q):
 
     if q.args.show_inputs:
         q.page['login_user'].items = [
-            ui.text(f'textbox_login={q.args.textbox_login}'),
-            ui.text(f'textbox_senha={q.args.textbox_senha}'),
             ui.text(f'textbox_date={q.args.textbox_date}'),
             ui.text(f'textbox_name={q.args.textbox_name}'),
             ui.text(f'textbox_loss={q.args.textbox_loss}'),
