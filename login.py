@@ -1,16 +1,10 @@
 from h2o_wave import Q, main, ui, app
-
-#######################################################################################################################
-
-# Cabeçalho do Dashboard
-
-
 #######################################################################################################################
 
 @app('/login')
 async def serve(q: Q):
-    card = q.page.add('header', ui.header_card(box = '1 1 12 2',
-                        title = 'Afirment - Sistemas de inteligencia atrificial',
+    card = q.page.add('header', ui.header_card(box = '1 1 9 2',
+                        title = 'login',
                         subtitle = 'Projetos',
                         icon = 'ExploreData'))
 
@@ -21,7 +15,7 @@ async def serve(q: Q):
             ui.button(name='show_form', label='Back', primary=True),
         ]
     else:
-        q.page['login_user'] = ui.form_card(box='4 3 6 4', items=[
+        q.page['login_user'] = ui.form_card(box='3 3 5 3', items=[
             ui.textbox(name='textbox_login', label='Login', required=True),
             ui.textbox(name='textbox_senha', label='Senha', required=True),
             ui.button(name='show_inputs', label='Entrar', primary=True),
