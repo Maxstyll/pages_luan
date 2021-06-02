@@ -16,7 +16,11 @@ async def serve(q: Q):
             content='[Spam](#menu/spam) / [Ham](#menu/ham) / [Eggs](#menu/eggs) / [About](#about)',
         )
         
-        await login.getLogin(q)
+        q.page['bory'] = ui.markdown_card(
+            box='1 3 12 2',
+            title='bory',
+            content='[Spam](#menu/spam) / [Ham](#menu/ham) / [Eggs](#menu/eggs) / [About](#about)',
+        )
 
         q.page['footer'] = ui.markdown_card(
             box='1 11 12 2',
