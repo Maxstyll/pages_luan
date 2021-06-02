@@ -48,7 +48,7 @@ async def serve(q: Q):
 										 icon = 'ExploreData',))
 
                                          
-    q.page['form'] = ui.form_card(box='3 3 6 6', items=[
+    q.page['form'] = ui.form_card(box='1 3 -1 6', items=[
         ui.table(
             name='issues',
             columns=columns,
@@ -61,14 +61,14 @@ async def serve(q: Q):
 
 
     if q.args.show_inputs:
-        q.page['login_user'] = ui.form_card(box='3 3 5 3', items=[
+        q.page['example'].items = [
             ui.textbox(name='textbox_date', label='date', mask='(999) 999 - 9999'),
             ui.textbox(name='textbox_name', label='name', required=True),
             ui.textbox(name='textbox_loss', label='loss', required=True),
             ui.textbox(name='textbox_acuracy', label='acuracy', required=True),
             ui.textbox(name='textbox_dataset', label='dataset', required=True),
             ui.button(name='example', label='inselt', primary=True),
-        ])
+        ]
     else:
      q.page['login_user'] = ui.form_card(box='3 3 5 3', items=[
             ui.textbox(name='textbox_login', label='Login', required=True),

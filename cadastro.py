@@ -21,7 +21,7 @@ async def serve(q: Q):
             ui.textbox(name='textbox_loss', label='loss', required=True),
             ui.textbox(name='textbox_acuracy', label='acuracy', required=True),
             ui.textbox(name='textbox_dataset', label='dataset', required=True),
-            ui.button(name='show_inputs', label='inselt', primary=True),
+            ui.button(name='', label='inselt', primary=True),
         ])
         
 
