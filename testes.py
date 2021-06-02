@@ -1,61 +1,32 @@
-from h2o_wave import main, app, Q, ui, on, handle_on
+from h2o_wave import site, ui
 
+# This example displays a clock using Javascript.
 
-# This function is called when q.args['empty_cart'] is True.
-@on(arg='empty_cart')
-async def clear_cart(q: Q):
-    q.page['cart'].items[0].text.content = 'Your cart was emptied!'
-    await q.page.save()
+page = site['/demo']
 
+# Add a placeholder for the clock.
+page['example'] = ui.markup_card(
+    box='1 1 2 1',
+    title='Time',
+    content='<div id="clock"/>',
+)
 
-# If the name of the function is the same as that of the q.arg, simply use on().
-# This function is called when q.args['buy_now'] is True.
-@on()
-async def buy_now(q: Q):
-    q.page['cart'].items[0].text.content = 'Nothing to buy!'
-    await q.page.save()
+# Specify the Javascript code to display the clock.
+clock_script = '''
+// Locate the placeholder 'div' element in our markup_card.
+const clock = document.getElementById("clock");
+const displayTime = () => { clock.innerText = (new Date()).toLocaleString(); };
 
+// Display the time every second (1000ms).
+window.setInterval(displayTime, 1000);
+'''
 
-# This function is called when q.args['#'] is 'about'.
-@on(arg='#about')
-async def handle_about(q: Q):
-    q.page['blurb'].content = 'Everything here is gluten-free!'
-    await q.page.save()
+# Add the script to the page.
+page['meta'] = ui.meta_card(box='1 1 2 5', script=ui.inline_script(
+    # The Javascript code for this script.
+    content=clock_script,
+    # Execute this script only if the 'clock' element is available.
+    targets=['clock'],
+))
 
-
-# This function is called when q.args['#'] is 'menu/spam', 'menu/ham', 'menu/eggs', etc.
-# The 'product' placeholder's value is passed as an argument to the function.
-@on(arg='#menu/{product}')
-async def handle_menu(q: Q, product: str):
-    q.page['blurb'].content = f"Sorry, we're out of {product}!"
-    await q.page.save()
-
-
-@app('/testes')
-async def serve(q: Q):
-    if not q.client.initialized:
-        q.client.initialized = True
-        q.page['nav'] = ui.markdown_card(
-            box='1 1 4 2',
-            title='Menu',
-            content='[Spam](#menu/spam) / [Ham](#menu/ham) / [Eggs](#menu/eggs) / [About](#about)',
-        )
-        q.page['blurb'] = ui.markdown_card(
-            box='1 3 4 2',
-            title='Description',
-            content='Welcome to our store!',
-        )
-        q.page['cart'] = ui.form_card(
-            box='1 5 4 2',
-            title='Cart',
-            items=[
-                ui.text('Your cart is empty!'),
-                ui.buttons([
-                    ui.button(name=buy_now.__name__, label='Buy Now!', primary=True),
-                    ui.button(name='empty_cart', label='Clear cart'),
-                ])
-            ],
-        )
-        await q.page.save()
-    else:
-        await handle_on(q)
+page.save()
