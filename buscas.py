@@ -15,7 +15,7 @@ class Issue:
         self.id = f'I{_id}'
         self.text = text
         self.status = status
-        self.views = 0
+        self.views = 1
         self.progress = accuracy
         self.icon = icon
         self.notifications = notifications
@@ -40,7 +40,7 @@ columns = [
 ]
 
 #####################################################################################################
-@app('/demo')
+@app('/buscas')
 async def serve(q: Q):
     card = q.page.add('header', ui.header_card(box = '1 1 9 2',
 	                                     title = 'busca de modelos',
@@ -48,7 +48,7 @@ async def serve(q: Q):
 										 icon = 'ExploreData',))
 
                                          
-    q.page['form'] = ui.form_card(box='1 3 -1 6', items=[
+    q.page['form'] = ui.form_card(box='3 3 6 6', items=[
         ui.table(
             name='issues',
             columns=columns,
@@ -58,4 +58,27 @@ async def serve(q: Q):
                        str(issue.progress)]) for issue in issues],
         )
     ])
+
+
+    if q.args.show_inputs:
+        q.page['login_user'] = ui.form_card(box='3 3 5 3', items=[
+            ui.textbox(name='textbox_date', label='date', mask='(999) 999 - 9999'),
+            ui.textbox(name='textbox_name', label='name', required=True),
+            ui.textbox(name='textbox_loss', label='loss', required=True),
+            ui.textbox(name='textbox_acuracy', label='acuracy', required=True),
+            ui.textbox(name='textbox_dataset', label='dataset', required=True),
+            ui.button(name='example', label='inselt', primary=True),
+        ])
+    else:
+     q.page['login_user'] = ui.form_card(box='3 3 5 3', items=[
+            ui.textbox(name='textbox_login', label='Login', required=True),
+            ui.textbox(name='textbox_senha', label='Senha', required=True),
+            ui.button(name='example', label='Entrar', primary=True),
+     ])
+        
+    q.page['example'] = ui.form_card(box='1 9 -1 10', items=[
+        ui.buttons([
+            ui.button(name='show_inputs', label='to create', primary=True),
+            ]),
+        ])        
     await q.page.save()
