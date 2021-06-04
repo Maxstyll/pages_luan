@@ -1,6 +1,12 @@
+# Login!
+# A simple example to get you started with Wave.
+# #login
+# ---
+# Import `Site` and the `ui` module from the `h2o_wave` package
 from h2o_wave import Q, main, ui, app
 
-async def getLogin(q: Q):
+@app('/body')
+async def serve(q: Q):
     if q.args.show_inputs:
         q.page['body'].items = [
             ui.text(f'textbox_login={q.args.textbox_login}'),

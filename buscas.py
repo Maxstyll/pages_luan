@@ -1,4 +1,8 @@
-
+# Buscas!
+# A simple example to get you started with Wave.
+# #buscas
+# ---
+# Import `Site` and the `ui` module from the `h2o_wave` package
 import random
 from faker import Faker
 from h2o_wave import main, app, Q, ui
@@ -40,7 +44,7 @@ columns = [
 ]
 
 #####################################################################################################
-@app('/buscas')
+@app('/body')
 async def serve(q: Q):
     card = q.page.add('header', ui.header_card(box = '1 1 9 2',
 	                                     title = 'busca de modelos',

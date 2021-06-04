@@ -1,7 +1,12 @@
+# Cadastros!
+# A simple example to get you started with Wave.
+# #cadastro
+# ---
+# Import `Site` and the `ui` module from the `h2o_wave` package
 from h2o_wave import Q, main, ui, app
 #######################################################################################################################
 
-@app('/cadastro')
+@app('/body')
 async def serve(q: Q):
     card = q.page.add('header', ui.header_card(box = '1 1 9 2',
                         title = 'modelo de cadastro',
