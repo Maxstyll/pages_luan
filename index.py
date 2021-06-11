@@ -17,7 +17,7 @@ async def serve(q: Q):
         )
         
         q.page['bory'] = ui.markdown_card(
-            box='1 3 12 2',
+            box='1 11 12 2',
             title='bory',
             content='[Spam](#menu/spam) / [Ham](#menu/ham) / [Eggs](#menu/eggs) / [About](#about)',
         )
